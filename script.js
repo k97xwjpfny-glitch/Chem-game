@@ -207,3 +207,37 @@ function drawBlock(x, y, color, text) {
   ctx.textAlign = "center";
   ctx.fillText(text, x * grid + grid / 2, y * grid + grid / 1.5);
 }
+
+// 監聽鍵盤按下事件
+window.addEventListener('keydown', function(e) {
+    // 檢查目前遊戲狀態
+    if (gameState === 'STOPPED' || gameState === 'GAMEOVER') {
+        if (e.code === 'Space' || e.key === ' ') {
+            e.preventDefault(); // 阻止頁面滾動
+            startGame(); // 呼叫開始遊戲的函式
+        }
+        return;
+    }
+
+    if (gameState === 'RUNNING') {
+        switch (e.code) {
+            case 'ArrowLeft':
+                e.preventDefault();
+                moveLeft();
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                moveRight();
+                break;
+            case 'ArrowDown':
+                e.preventDefault();
+                moveDown();
+                break;
+            case 'Space':
+                // 遊戲中按空白鍵可以設定為「瞬間下落」或「暫停」
+                e.preventDefault();
+                // dropPiece(); // 如果你有寫瞬間下落功能
+                break;
+        }
+    }
+});
