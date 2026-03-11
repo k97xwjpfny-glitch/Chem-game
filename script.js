@@ -241,3 +241,21 @@ window.addEventListener('keydown', function(e) {
         }
     }
 });
+
+function startGame() {
+    console.log("遊戲啟動中..."); // 方便你檢查有沒有成功執行
+    gameState = 'RUNNING';
+    score = 0;
+    board = Array.from({ length: rows }, () => Array(cols).fill(null));
+    currentPiece = spawnPiece();
+    
+    // 隱藏開始畫面
+    const overlay = document.getElementById('overlay');
+    if (overlay) overlay.style.display = 'none';
+    
+    // 設定定時器，每 500 毫秒掉一格
+    if (window.gameInterval) clearInterval(window.gameInterval);
+    window.gameInterval = setInterval(gameLoop, 500);
+    
+    draw();
+}
